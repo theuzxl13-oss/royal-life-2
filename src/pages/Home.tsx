@@ -10,13 +10,13 @@ import type { Product } from '../types';
 function Section({ id, eyebrow, title, products, link }: { id: string; eyebrow: string; title: string; products: Product[]; link?: string }) {
   if (!products.length) return null;
   return (
-    <section aria-labelledby={id} className="container-page mt-16 sm:mt-20">
+    <section aria-labelledby={id} className="container-page mt-20 sm:mt-28">
       <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="eyebrow">{eyebrow}</p>
           <h2 id={id} className="section-title mt-2">{title}</h2>
         </div>
-        {link && <Link to={link} className="text-sm text-gold underline-offset-4 hover:text-gold-light hover:underline">Ver todos</Link>}
+        {link && <Link to={link} className="text-[17px] text-gold hover:underline">Ver todos ›</Link>}
       </div>
       <ProductGrid products={products.slice(0, 8)} />
     </section>
@@ -41,24 +41,22 @@ export default function Home() {
     <>
       <Hero />
 
-      <section aria-labelledby="categorias" className="container-page mt-14">
+      <section aria-labelledby="categorias" className="container-page mt-16 sm:mt-24">
         <div className="text-center">
           <p className="eyebrow">Navegue por</p>
           <h2 id="categorias" className="section-title mt-2">Categorias</h2>
-          <div className="gold-line" />
         </div>
         <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:flex lg:flex-wrap lg:justify-center">
           {visibleCategories.map((c) => (
             <li key={c.id} className="lg:w-44">
               <Link
                 to={`/catalogo/${c.slug}`}
-                className="group relative flex aspect-[4/3] items-end overflow-hidden rounded-lg border border-gold/20 bg-ink-800 p-4 transition hover:border-gold/60 sm:aspect-square"
+                className="group relative flex aspect-[4/3] items-end overflow-hidden rounded-[28px] bg-ink-800 p-5 transition hover:bg-ink-700 sm:aspect-square"
               >
-                {!c.image_url && <span aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(201,165,76,0.28),transparent_60%)] " />}
-                {!c.image_url && <span aria-hidden className="absolute right-4 top-4 font-display text-4xl text-gold/40 transition group-hover:text-gold/70">{c.name.charAt(0)}</span>}
+                {!c.image_url && <span aria-hidden className="absolute right-5 top-4 font-display text-5xl font-semibold text-gold/35 transition group-hover:text-gold/70">{c.name.charAt(0)}</span>}
                 {c.image_url && <img src={c.image_url} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-50 transition group-hover:opacity-70" />}
-                <span className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent" />
-                <span className="relative font-display text-xl text-cream group-hover:text-gold-light">{c.name}</span>
+                {c.image_url && <span className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent" />}
+                <span className="relative font-display text-[19px] font-semibold text-cream">{c.name}</span>
               </Link>
             </li>
           ))}
@@ -76,12 +74,11 @@ export default function Home() {
         <p className="container-page mt-16 text-center text-cream/70">Em breve, novos produtos no catálogo.</p>
       )}
 
-      <section aria-labelledby="sobre-home" className="mt-20 border-y border-gold/15 bg-ink-800">
-        <div className="container-page grid items-center gap-10 py-16 md:grid-cols-2">
+      <section aria-labelledby="sobre-home" className="container-page mt-24">
+        <div className="grid items-center gap-10 rounded-[28px] bg-ink-800 px-6 py-12 sm:px-12 sm:py-16 md:grid-cols-2">
           <div>
             <p className="eyebrow">Institucional</p>
             <h2 id="sobre-home" className="section-title mt-2">{settings.about_title}</h2>
-            <div className="mt-3 h-px w-16 bg-gold-gradient" />
             <div className="prose-rl mt-6">
               {(settings.about_text || 'Conte aqui a história da Royal Life Perfumaria. Edite este texto no painel administrativo.')
                 .split(/\n{2,}/)
@@ -89,15 +86,15 @@ export default function Home() {
             </div>
             <Link to="/sobre" className="btn-outline mt-2">Conheça a Royal Life</Link>
           </div>
-          <blockquote className="border-l-2 border-gold pl-6 font-display text-3xl italic leading-snug text-gold-light sm:text-4xl">
+          <blockquote className="font-display text-[32px] font-semibold leading-[1.1] text-gold sm:text-5xl">
             “{settings.tagline}”
           </blockquote>
         </div>
       </section>
 
-      <section className="container-page mt-16 text-center">
+      <section className="container-page mt-24 text-center">
         <h2 className="section-title">Encontre sua fragrância</h2>
-        <p className="mx-auto mt-3 max-w-md text-cream/75">Explore o catálogo completo, monte seu pedido e finalize o atendimento pelo WhatsApp.</p>
+        <p className="mx-auto mt-4 max-w-md text-steel">Explore o catálogo completo, monte seu pedido e finalize o atendimento pelo WhatsApp.</p>
         <Link to="/catalogo" className="btn-gold mt-6">Explorar catálogo</Link>
       </section>
     </>

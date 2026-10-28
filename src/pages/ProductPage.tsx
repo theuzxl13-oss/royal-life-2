@@ -73,20 +73,20 @@ export default function ProductPage() {
 
   return (
     <div className="container-page py-8 sm:py-12">
-      <nav aria-label="Trilha" className="text-xs text-cream/60">
-        <Link to="/" className="hover:text-gold-light">Início</Link> <span aria-hidden>/</span>{' '}
-        <Link to="/catalogo" className="hover:text-gold-light">Catálogo</Link>
-        {category && <> <span aria-hidden>/</span> <Link to={`/catalogo/${category.slug}`} className="hover:text-gold-light">{category.name}</Link></>}
+      <nav aria-label="Trilha" className="crumbs">
+        <Link to="/">Início</Link> <span aria-hidden>/</span>{' '}
+        <Link to="/catalogo">Catálogo</Link>
+        {category && <> <span aria-hidden>/</span> <Link to={`/catalogo/${category.slug}`}>{category.name}</Link></>}
         {' '}<span aria-hidden>/</span> <span aria-current="page">{product.name}</span>
       </nav>
 
       <div className="mt-6 grid gap-8 md:grid-cols-2 lg:gap-14">
         <section aria-label="Galeria de fotos">
-          <div className="aspect-[4/5] overflow-hidden rounded-lg border border-white/10 bg-ink-800">
+          <div className="aspect-[4/5] overflow-hidden rounded-[28px] bg-paper">
             {images.length ? (
               <img src={images[imgIndex]} alt={isIllustration(images[imgIndex]) ? `Imagem ilustrativa de ${product.name}` : `${product.name} — foto ${imgIndex + 1} de ${images.length}`} className="h-full w-full object-cover" width={800} height={1000} />
             ) : (
-              <span className="flex h-full items-center justify-center text-cream/40">Sem foto</span>
+              <span className="flex h-full items-center justify-center text-steel">Sem foto</span>
             )}
           </div>
           {images[imgIndex] && isIllustration(images[imgIndex]) && (
@@ -101,7 +101,7 @@ export default function ProductPage() {
                     onClick={() => setImgIndex(i)}
                     aria-label={`Ver foto ${i + 1}`}
                     aria-current={i === imgIndex}
-                    className={`block h-20 w-16 overflow-hidden rounded border-2 ${i === imgIndex ? 'border-gold' : 'border-transparent opacity-70 hover:opacity-100'}`}
+                    className={`block h-20 w-16 overflow-hidden rounded-xl bg-paper ring-2 ${i === imgIndex ? 'ring-gold' : 'ring-transparent opacity-70 hover:opacity-100'}`}
                   >
                     <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" width={64} height={80} />
                   </button>
@@ -113,18 +113,18 @@ export default function ProductPage() {
 
         <section aria-labelledby="product-title">
           {product.demo && (
-            <p className="mb-4 rounded border border-cream/30 bg-cream/5 px-3 py-2 text-sm text-cream/90">
+            <p className="mb-4 rounded-2xl bg-ink-800 px-4 py-3 text-sm text-cream/90">
               Produto de demonstração — apenas ilustrativo, não está à venda.
             </p>
           )}
           {brand && <p className="eyebrow">{brand}</p>}
-          <h1 id="product-title" className="mt-2 font-display text-4xl font-semibold leading-tight sm:text-5xl">{product.name}</h1>
-          <dl className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-cream/75">
-            {product.volume && <div><dt className="inline text-cream/50">Volume: </dt><dd className="inline">{product.volume}</dd></div>}
-            {category && <div><dt className="inline text-cream/50">Categoria: </dt><dd className="inline">{category.name}</dd></div>}
+          <h1 id="product-title" className="mt-1 font-display text-[40px] font-semibold leading-[1.07] sm:text-[56px]">{product.name}</h1>
+          <dl className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-steel">
+            {product.volume && <div><dt className="inline">Volume: </dt><dd className="inline">{product.volume}</dd></div>}
+            {category && <div><dt className="inline">Categoria: </dt><dd className="inline">{category.name}</dd></div>}
           </dl>
           <div className="mt-6"><Price price={product.price} promo={product.promo_price} large /></div>
-          <p className={`mt-3 text-sm font-medium ${out ? 'text-red-300' : product.stock <= 3 ? 'text-gold-light' : 'text-emerald-300'}`}>
+          <p className={`mt-3 text-sm font-medium ${out ? 'text-red-300' : product.stock <= 3 ? 'text-gold' : 'text-steel'}`}>
             {out ? 'Esgotado no momento' : product.stock <= 3 ? `Últimas ${product.stock} unidades` : 'Disponível em estoque'}
           </p>
 
@@ -132,15 +132,15 @@ export default function ProductPage() {
 
           {!out && (
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <div className="flex items-center rounded border border-white/15" role="group" aria-label="Quantidade">
-                <button type="button" className="icon-btn rounded-none" onClick={() => setQty((q) => Math.max(1, q - 1))} disabled={qty <= 1} aria-label="Diminuir quantidade">
+              <div className="flex items-center rounded-full border border-graphite" role="group" aria-label="Quantidade">
+                <button type="button" className="icon-btn" onClick={() => setQty((q) => Math.max(1, q - 1))} disabled={qty <= 1} aria-label="Diminuir quantidade">
                   <MinusIcon width={18} height={18} />
                 </button>
                 <label htmlFor="qty" className="sr-only">Quantidade</label>
                 <input id="qty" type="number" inputMode="numeric" min={1} max={Math.max(1, maxQty)} value={qty}
                   onChange={(e) => setQty(Math.max(1, Math.min(Math.max(1, maxQty), Number(e.target.value) || 1)))}
                   className="h-11 w-14 bg-transparent text-center text-base [appearance:textfield] focus:outline-none [&::-webkit-inner-spin-button]:appearance-none" />
-                <button type="button" className="icon-btn rounded-none" onClick={() => setQty((q) => Math.min(maxQty, q + 1))} disabled={qty >= maxQty} aria-label="Aumentar quantidade">
+                <button type="button" className="icon-btn" onClick={() => setQty((q) => Math.min(maxQty, q + 1))} disabled={qty >= maxQty} aria-label="Aumentar quantidade">
                   <PlusIcon width={18} height={18} />
                 </button>
               </div>
@@ -151,8 +151,8 @@ export default function ProductPage() {
           )}
           <div aria-live="polite" className="min-h-[1.5rem]">
             {added && (
-              <p className="mt-3 text-sm text-emerald-300">
-                Adicionado ao carrinho. <Link to="/carrinho" className="underline hover:text-gold-light">Ver carrinho</Link>
+              <p className="mt-3 text-sm text-cream">
+                Adicionado ao carrinho. <Link to="/carrinho" className="text-gold hover:underline">Ver carrinho ›</Link>
               </p>
             )}
           </div>
@@ -168,13 +168,13 @@ export default function ProductPage() {
 
           {product.description && (
             <div className="mt-10">
-              <h2 className="font-display text-2xl text-gold-light">Descrição</h2>
+              <h2 className="font-display text-[28px] font-semibold">Descrição</h2>
               <div className="prose-rl mt-3">{product.description.split(/\n{2,}/).map((p, i) => <p key={i}>{p}</p>)}</div>
             </div>
           )}
           {product.details && (
-            <details className="mt-6 rounded border border-white/10 p-4" open>
-              <summary className="cursor-pointer font-display text-xl text-gold-light">Detalhes</summary>
+            <details className="mt-6 rounded-[28px] bg-ink-800 p-5 sm:p-6" open>
+              <summary className="cursor-pointer font-display text-[21px] font-semibold">Detalhes</summary>
               <div className="prose-rl mt-3 whitespace-pre-line text-cream/85">{product.details}</div>
             </details>
           )}
@@ -182,7 +182,7 @@ export default function ProductPage() {
       </div>
 
       {related.length > 0 && (
-        <section aria-labelledby="related" className="mt-20">
+        <section aria-labelledby="related" className="mt-24">
           <h2 id="related" className="section-title mb-8">Você também pode gostar</h2>
           <ProductGrid products={related} />
         </section>

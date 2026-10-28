@@ -12,11 +12,11 @@ export default function Logo({ className = '', compact = false }: { className?: 
         alt=""
         width={44}
         height={44}
-        className="h-10 w-10 shrink-0 rounded-full object-contain sm:h-11 sm:w-11"
+        className="h-9 w-9 shrink-0 rounded-full object-contain sm:h-10 sm:w-10"
       />
       <span className="flex flex-col">
-        <span className="font-display text-lg font-semibold tracking-[0.2em] text-gold-light sm:text-2xl">ROYAL LIFE</span>
-        {!compact && <span className="mt-0.5 text-[0.55rem] tracking-[0.45em] text-cream/80 sm:text-[0.6rem] sm:tracking-[0.5em]">PERFUMARIA</span>}
+        <span className="text-[15px] font-semibold tracking-[0.18em] text-cream sm:text-[17px]">ROYAL LIFE</span>
+        {!compact && <span className="mt-1 text-[0.55rem] tracking-[0.42em] text-gold sm:text-[0.6rem]">PERFUMARIA</span>}
       </span>
       <span className="sr-only">{settings.store_name}</span>
     </span>

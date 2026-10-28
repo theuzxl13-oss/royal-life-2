@@ -6,7 +6,7 @@ import { BagIcon, CloseIcon, MenuIcon, SearchIcon } from './Icons';
 import Logo from './Logo';
 
 const navClass = ({ isActive }: { isActive: boolean }) =>
-  `px-1 py-2 text-sm tracking-wide transition hover:text-gold-light ${isActive ? 'text-gold-light' : 'text-cream/85'}`;
+  `px-1 py-2 text-[13px] tracking-[-0.01em] transition hover:text-cream ${isActive ? 'text-cream' : 'text-cream/70'}`;
 
 export default function Header() {
   const { count } = useCart();
@@ -55,15 +55,15 @@ export default function Header() {
         className="input pr-11"
         autoComplete="off"
       />
-      <button type="submit" className="absolute right-1 top-1/2 -translate-y-1/2 rounded p-2 text-gold hover:text-gold-light" aria-label="Buscar">
+      <button type="submit" className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-full p-2 text-steel hover:text-cream" aria-label="Buscar">
         <SearchIcon width={18} height={18} />
       </button>
     </form>
   );
 
   return (
-    <header className="sticky top-0 z-40 border-b border-gold/15 bg-ink/95 backdrop-blur supports-[backdrop-filter]:bg-ink/80">
-      <div className="container-page flex h-16 items-center gap-3 md:h-20">
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-ink/90 backdrop-blur-xl supports-[backdrop-filter]:bg-ink/75">
+      <div className="container-page flex h-16 items-center gap-3">
         <button type="button" className="icon-btn md:hidden" aria-label="Abrir menu" aria-expanded={menuOpen} aria-controls="mobile-menu" onClick={() => setMenuOpen(true)}>
           <MenuIcon />
         </button>
@@ -95,7 +95,7 @@ export default function Header() {
       {menuOpen && (
         <div className="fixed inset-0 z-50 md:hidden" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu">
           <button type="button" className="absolute inset-0 bg-black/70" aria-label="Fechar menu" onClick={() => setMenuOpen(false)} />
-          <nav className="absolute inset-y-0 left-0 flex w-[82%] max-w-xs flex-col gap-1 overflow-y-auto border-r border-gold/20 bg-ink-900 p-5">
+          <nav className="absolute inset-y-0 left-0 flex w-[82%] max-w-xs flex-col gap-0.5 overflow-y-auto bg-ink-800 p-5">
             <div className="mb-4 flex items-center justify-between">
               <Logo compact />
               <button type="button" className="icon-btn" aria-label="Fechar menu" onClick={() => setMenuOpen(false)}>
@@ -104,11 +104,11 @@ export default function Header() {
             </div>
             <Link className="mobile-link" to="/">Início</Link>
             <Link className="mobile-link" to="/catalogo">Todo o catálogo</Link>
-            {categories.length > 0 && <p className="mt-4 text-xs uppercase tracking-[0.2em] text-gold">Categorias</p>}
+            {categories.length > 0 && <p className="mobile-label">Categorias</p>}
             {categories.map((c) => (
               <Link key={c.id} className="mobile-link" to={`/catalogo/${c.slug}`}>{c.name}</Link>
             ))}
-            <p className="mt-4 text-xs uppercase tracking-[0.2em] text-gold">Institucional</p>
+            <p className="mobile-label">Institucional</p>
             <Link className="mobile-link" to="/sobre">Sobre</Link>
             <Link className="mobile-link" to="/condicoes-de-compra">Condições de compra</Link>
             <Link className="mobile-link" to="/privacidade">Privacidade</Link>

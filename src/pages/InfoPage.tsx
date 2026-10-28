@@ -66,11 +66,10 @@ export default function InfoPage({ kind }: { kind: Kind }) {
 
   return (
     <div className="container-page max-w-3xl py-12">
-      <nav aria-label="Trilha" className="text-xs text-cream/60">
-        <Link to="/" className="hover:text-gold-light">Início</Link> <span aria-hidden>/</span> <span aria-current="page">{config.title}</span>
+      <nav aria-label="Trilha" className="crumbs">
+        <Link to="/">Início</Link> <span aria-hidden>/</span> <span aria-current="page">{config.title}</span>
       </nav>
       <h1 className="section-title mt-4">{config.title}</h1>
-      <div className="mt-3 h-px w-16 bg-gold-gradient" />
       <div className="mt-8">
         <RichText text={config.text} />
       </div>

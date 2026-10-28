@@ -81,38 +81,38 @@ export default function Cart() {
     <div className="container-page py-10">
       <h1 className="section-title">Carrinho</h1>
       <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_380px]">
-        <ul className="divide-y divide-white/10 rounded-lg border border-white/10" aria-label="Itens do carrinho">
+        <ul className="divide-y divide-white/10 rounded-[28px] bg-ink-800 px-2" aria-label="Itens do carrinho">
           {items.map((item) => {
             const p = item.product;
             return (
               <li key={item.productId} className="flex gap-3 p-3 sm:gap-4 sm:p-4">
-                <Link to={`/produto/${p.slug}`} className="h-24 w-20 shrink-0 overflow-hidden rounded bg-ink-700 sm:h-28 sm:w-24">
+                <Link to={`/produto/${p.slug}`} className="h-24 w-20 shrink-0 overflow-hidden rounded-2xl bg-paper sm:h-28 sm:w-24">
                   {p.images[0] && <img src={p.images[0]} alt={p.name} className="h-full w-full object-cover" loading="lazy" width={96} height={112} />}
                 </Link>
                 <div className="flex min-w-0 flex-1 flex-col">
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
-                      {brandName(p.brand_id) && <p className="text-[0.7rem] uppercase tracking-[0.15em] text-gold">{brandName(p.brand_id)}</p>}
-                      <Link to={`/produto/${p.slug}`} className="block font-display text-lg leading-tight hover:text-gold-light">{p.name}</Link>
-                      {p.volume && <p className="text-xs text-cream/60">{p.volume}</p>}
+                      {brandName(p.brand_id) && <p className="text-xs text-steel">{brandName(p.brand_id)}</p>}
+                      <Link to={`/produto/${p.slug}`} className="block font-display text-[17px] font-semibold leading-tight hover:underline">{p.name}</Link>
+                      {p.volume && <p className="text-xs text-steel">{p.volume}</p>}
                     </div>
                     <button type="button" className="icon-btn h-10 w-10 shrink-0 text-cream/60 hover:text-red-300" onClick={() => remove(item.productId)} aria-label={`Remover ${p.name} do carrinho`}>
                       <TrashIcon width={18} height={18} />
                     </button>
                   </div>
                   <div className="mt-auto flex flex-wrap items-end justify-between gap-2 pt-2">
-                    <div className="flex items-center rounded border border-white/15" role="group" aria-label={`Quantidade de ${p.name}`}>
-                      <button type="button" className="icon-btn h-10 w-10 rounded-none" onClick={() => setQuantity(item.productId, item.quantity - 1)} aria-label="Diminuir quantidade">
+                    <div className="flex items-center rounded-full border border-graphite" role="group" aria-label={`Quantidade de ${p.name}`}>
+                      <button type="button" className="icon-btn h-10 w-10" onClick={() => setQuantity(item.productId, item.quantity - 1)} aria-label="Diminuir quantidade">
                         <MinusIcon width={16} height={16} />
                       </button>
                       <span className="w-8 text-center text-sm" aria-live="polite">{item.quantity}</span>
-                      <button type="button" className="icon-btn h-10 w-10 rounded-none" onClick={() => setQuantity(item.productId, item.quantity + 1)} disabled={item.quantity >= p.stock} aria-label="Aumentar quantidade">
+                      <button type="button" className="icon-btn h-10 w-10" onClick={() => setQuantity(item.productId, item.quantity + 1)} disabled={item.quantity >= p.stock} aria-label="Aumentar quantidade">
                         <PlusIcon width={16} height={16} />
                       </button>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-cream/60">{item.quantity} x {formatPrice(item.unitPrice)}</p>
-                      <p className="font-semibold text-gold-light">{formatPrice(item.subtotal)}</p>
+                      <p className="text-xs text-steel">{item.quantity} x {formatPrice(item.unitPrice)}</p>
+                      <p className="font-semibold text-cream">{formatPrice(item.subtotal)}</p>
                     </div>
                   </div>
                   {item.quantity >= p.stock && <p className="mt-1 text-xs text-cream/60">Quantidade máxima disponível em estoque.</p>}
@@ -123,11 +123,11 @@ export default function Cart() {
         </ul>
 
         <form onSubmit={submit} className="card h-fit space-y-5 lg:sticky lg:top-24" noValidate>
-          <h2 className="font-display text-2xl">Resumo</h2>
+          <h2 className="font-display text-[28px] font-semibold">Resumo</h2>
           <dl className="space-y-2 text-sm">
-            <div className="flex justify-between"><dt className="text-cream/70">Subtotal</dt><dd>{formatPrice(total)}</dd></div>
-            <div className="flex justify-between text-cream/60"><dt>Entrega</dt><dd>a combinar</dd></div>
-            <div className="flex justify-between border-t border-white/10 pt-3 text-lg"><dt>Total</dt><dd className="font-semibold text-gold-light">{formatPrice(total)}</dd></div>
+            <div className="flex justify-between"><dt className="text-steel">Subtotal</dt><dd>{formatPrice(total)}</dd></div>
+            <div className="flex justify-between text-steel"><dt>Entrega</dt><dd>a combinar</dd></div>
+            <div className="flex justify-between border-t border-white/10 pt-3 text-lg"><dt>Total</dt><dd className="font-semibold text-cream">{formatPrice(total)}</dd></div>
           </dl>
           <div>
             <label htmlFor="c-name" className="label">Seu nome *</label>
@@ -141,9 +141,9 @@ export default function Cart() {
           <button type="submit" className="btn-whatsapp w-full" disabled={sending}>
             <WhatsAppIcon /> {sending ? 'Registrando pedido…' : 'Enviar pedido pelo WhatsApp'}
           </button>
-          <p className="text-xs leading-relaxed text-cream/60">
+          <p className="text-xs leading-relaxed text-steel">
             O pagamento não é feito pelo site. Ao enviar, abriremos o WhatsApp com a lista de itens; nossa equipe confirma disponibilidade, valores, pagamento e entrega.
-            Veja as <Link to="/condicoes-de-compra" className="underline hover:text-gold-light">condições de compra</Link>.
+            Veja as <Link to="/condicoes-de-compra" className="text-gold hover:underline">condições de compra</Link>.
           </p>
         </form>
       </div>

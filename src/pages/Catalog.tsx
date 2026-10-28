@@ -116,21 +116,21 @@ export default function Catalog() {
         Somente ofertas
       </label>
       {activeCount > 0 && (
-        <button type="button" onClick={clearAll} className="btn-ghost w-full justify-center border border-white/10">Limpar filtros</button>
+        <button type="button" onClick={clearAll} className="btn-ghost w-full justify-center border border-graphite">Limpar filtros</button>
       )}
     </div>
   );
 
   return (
     <div className="container-page py-10">
-      <nav aria-label="Trilha" className="text-xs text-cream/60">
-        <Link to="/" className="hover:text-gold-light">Início</Link> <span aria-hidden>/</span>{' '}
-        {category ? <><Link to="/catalogo" className="hover:text-gold-light">Catálogo</Link> <span aria-hidden>/</span> <span aria-current="page">{category.name}</span></> : <span aria-current="page">Catálogo</span>}
+      <nav aria-label="Trilha" className="crumbs">
+        <Link to="/">Início</Link> <span aria-hidden>/</span>{' '}
+        {category ? <><Link to="/catalogo">Catálogo</Link> <span aria-hidden>/</span> <span aria-current="page">{category.name}</span></> : <span aria-current="page">Catálogo</span>}
       </nav>
       <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="section-title">{title}</h1>
-          <p className="mt-1 text-sm text-cream/60" aria-live="polite">
+          <p className="mt-2 text-sm text-steel" aria-live="polite">
             {loading ? 'Carregando…' : `${list.length} ${list.length === 1 ? 'produto' : 'produtos'}`}
             {categoria && !category && !loading && ' — categoria não encontrada'}
           </p>
@@ -147,9 +147,9 @@ export default function Catalog() {
       </div>
 
       <div className="-mx-4 mt-6 flex gap-2 overflow-x-auto px-4 pb-2 lg:hidden" aria-label="Categorias">
-        <button type="button" onClick={() => setCategory('')} className={`shrink-0 rounded-full border px-4 py-2 text-sm ${!category ? 'border-gold bg-gold text-ink' : 'border-white/15 text-cream/80'}`}>Todos</button>
+        <button type="button" onClick={() => setCategory('')} className={`shrink-0 rounded-full border px-4 py-2 text-sm ${!category ? 'border-cream bg-cream text-ink' : 'border-graphite text-cream/80'}`}>Todos</button>
         {categories.map((c) => (
-          <button key={c.id} type="button" onClick={() => setCategory(c.slug)} className={`shrink-0 rounded-full border px-4 py-2 text-sm ${category?.id === c.id ? 'border-gold bg-gold text-ink' : 'border-white/15 text-cream/80'}`}>
+          <button key={c.id} type="button" onClick={() => setCategory(c.slug)} className={`shrink-0 rounded-full border px-4 py-2 text-sm ${category?.id === c.id ? 'border-cream bg-cream text-ink' : 'border-graphite text-cream/80'}`}>
             {c.name}
           </button>
         ))}
@@ -167,9 +167,9 @@ export default function Catalog() {
       {filtersOpen && (
         <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Filtros" id="filters-drawer">
           <button type="button" className="absolute inset-0 bg-black/70" aria-label="Fechar filtros" onClick={() => setFiltersOpen(false)} />
-          <div className="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-2xl border-t border-gold/30 bg-ink-900 p-5 pb-8">
+          <div className="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-[28px] bg-ink-800 p-5 pb-8">
             <div className="mb-5 flex items-center justify-between">
-              <h2 className="font-display text-2xl">Filtros</h2>
+              <h2 className="font-display text-[28px] font-semibold">Filtros</h2>
               <button type="button" className="icon-btn" aria-label="Fechar filtros" onClick={() => setFiltersOpen(false)}><CloseIcon /></button>
             </div>
             {filterPanel}
