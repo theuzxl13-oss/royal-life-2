@@ -1,0 +1,1 @@
+import{j as t}from"./index-B2c0k3oH.js";function d({kind:r,children:e}){return t.jsx("p",{role:r==="error"?"alert":"status",className:`rounded border p-3 text-sm ${r==="error"?"border-red-400/40 bg-red-500/10 text-red-200":"border-emerald-400/40 bg-emerald-500/10 text-emerald-200"}`,children:e})}export{d as N};

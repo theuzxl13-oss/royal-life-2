@@ -1,0 +1,1 @@
+import{u as n,j as t,S as o}from"./index-B2c0k3oH.js";import{b as s,f as m}from"./react-Cpk2FnoR.js";import"./supabase-f4bNl52y.js";function p({children:a}){const{session:e,checking:r}=n(),i=s();return r?t.jsx(o,{label:"Verificando acesso…"}):e!=null&&e.isAdmin?t.jsx(t.Fragment,{children:a}):t.jsx(m,{to:"/admin/login",replace:!0,state:{from:i.pathname}})}export{p as default};
