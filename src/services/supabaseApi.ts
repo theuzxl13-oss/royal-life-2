@@ -22,8 +22,12 @@ const toProduct = (row: any): Product => ({
   ...row,
   price: Number(row.price),
   promo_price: row.promo_price == null ? null : Number(row.promo_price),
-  images: row.images ?? [],
+  images: ((row.images ?? []) as string[]).map(resolveLocal),
 });
+
+// Fotos que vêm junto com o site (public/produtos) são salvas como "/produtos/arquivo".
+const resolveLocal = (src: string) =>
+  src.startsWith('/') && !src.startsWith('//') ? import.meta.env.BASE_URL.replace(/\/$/, '') + src : src;
 
 async function sessionToAdmin(session: Session | null): Promise<AdminSession | null> {
   if (!session?.user) return null;

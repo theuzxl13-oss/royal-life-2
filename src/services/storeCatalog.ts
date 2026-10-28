@@ -3,8 +3,8 @@ import { bottleSvg } from './demoData';
 
 /**
  * Produtos da Royal Life usados na prévia (sem banco configurado).
- * Preços informados pela loja; estoque provisório; imagens ilustrativas
- * até o envio das fotos reais. Os mesmos produtos estão em supabase/seed-produtos.sql.
+ * Preços informados pela loja; estoque provisório; fotos enviadas pela loja
+ * em public/produtos/ (os demais usam imagem ilustrativa até receber a foto). Os mesmos produtos estão em supabase/seed-produtos.sql.
  */
 export const storeBrands: Brand[] = [
   ['Carolina Herrera', 'carolina-herrera'],
@@ -31,7 +31,13 @@ interface Entry {
   description: string;
   details: string;
   look: [liquid: string, label: string, shape: number];
+  /** Arquivo em public/produtos/ (foto enviada pela loja). */
+  photo?: string;
 }
+
+// Caminho relativo à raiz do site; funciona também em subpasta (GitHub Pages).
+const base = (import.meta.env?.BASE_URL as string | undefined) ?? '/';
+export const photoUrl = (file: string) => `${base}produtos/${file}`;
 
 const PROVISIONAL_STOCK = 5;
 
@@ -193,6 +199,7 @@ const entries: Entry[] = [
     details:
       'Família olfativa: floral gourmand\nNotas de topo: orquídea, heliotrópio, tangerina\nNotas de coração: acorde gourmand, frutas tropicais\nNotas de fundo: baunilha, almíscar, sândalo',
     look: ['#e9a9c4', 'YARA', 2],
+    photo: 'yara-lattafa.webp',
   },
   {
     name: '9 PM',
@@ -207,6 +214,7 @@ const entries: Entry[] = [
     details:
       'Família olfativa: âmbar baunilhado\nNotas de topo: maçã, canela, lavanda, bergamota\nNotas de coração: flor de laranjeira, lírio-do-vale\nNotas de fundo: baunilha, fava tonka, âmbar, patchouli',
     look: ['#151515', '9 PM', 0],
+    photo: '9-pm-afnan.webp',
   },
   {
     name: 'Bare Vanilla — Body Splash',
@@ -220,6 +228,7 @@ const entries: Entry[] = [
       'Bare Vanilla é uma bruma corporal suave e confortável, com baunilha aveludada e um toque macio de cashmere. Leve para usar a qualquer hora.\n\nPode ser reaplicado ao longo do dia.',
     details: 'Notas principais: baunilha batida, cashmere\nUso: aplique sobre a pele limpa e reaplique quando desejar.',
     look: ['#ead2b0', 'BARE VANILLA', 2],
+    photo: 'bare-vanilla-victorias-secret.webp',
   },
   {
     name: 'Love Spell — Body Splash',
@@ -233,20 +242,22 @@ const entries: Entry[] = [
       'Love Spell combina a delicadeza da flor de cerejeira com a suculência do pêssego. Uma bruma alegre e feminina, perfeita para o dia a dia.\n\nPode ser reaplicado ao longo do dia.',
     details: 'Notas principais: flor de cerejeira, pêssego\nUso: aplique sobre a pele limpa e reaplique quando desejar.',
     look: ['#c2477a', 'LOVE SPELL', 2],
+    photo: 'love-spell-victorias-secret.webp',
   },
   {
-    name: 'Kit Body Splash + Hidratante',
-    slug: 'kit-body-splash-hidratante',
-    brand: null,
+    name: 'Kit Pure Seduction — Body Splash + Hidratante',
+    slug: 'kit-pure-seduction-victorias-secret',
+    brand: 'victorias-secret',
     category: 'kits',
-    volume: 'Body splash + hidratante',
+    volume: '75 ml + 75 ml',
     price: 199.9,
-    short: 'Body splash e hidratante da mesma fragrância: perfume e cuidado para a pele.',
+    short: 'Body splash e loção hidratante Pure Seduction: ameixa vermelha e frésia.',
     description:
-      'Kit com body splash e hidratante corporal. Usados juntos, prolongam a fragrância na pele e deixam um perfume suave por mais tempo.\n\nUma ótima opção de presente. Consulte pelo WhatsApp as fragrâncias disponíveis.',
+      'Kit presente com a fragrância Pure Seduction em duas versões: a bruma perfumada e a loção hidratante. Usados juntos, prolongam o perfume na pele, com um rastro frutado e floral.\n\nVem em caixa de presente, ótimo para presentear.',
     details:
-      'Conteúdo: 1 body splash + 1 hidratante corporal\nFragrâncias: consulte a disponibilidade pelo WhatsApp\nDica: aplique o hidratante primeiro e o body splash por cima.',
-    look: ['#d8b98a', 'KIT', 0],
+      'Conteúdo: 1 Fragrance Mist 75 ml + 1 Fragrance Lotion 75 ml\nNotas principais: ameixa vermelha, frésia\nDica: aplique a loção primeiro e a bruma por cima.',
+    look: ['#c2185b', 'PURE SEDUCTION', 1],
+    photo: 'kit-pure-seduction-victorias-secret.webp',
   },
 ];
 
@@ -263,7 +274,7 @@ export const storeProducts: Product[] = entries.map((e, i) => ({
   price: e.price,
   promo_price: null,
   stock: PROVISIONAL_STOCK,
-  images: [bottleSvg(e.look[0], '#c9a54c', e.look[1], e.look[2], 'IMAGEM ILUSTRATIVA')],
+  images: e.photo ? [photoUrl(e.photo)] : [bottleSvg(e.look[0], '#c9a54c', e.look[1], e.look[2], 'IMAGEM ILUSTRATIVA')],
   featured: Boolean(e.featured),
   is_new: false,
   active: true,
