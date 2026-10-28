@@ -53,3 +53,85 @@
   .prose-rl h2 { @apply mb-3 mt-8 font-display text-2xl font-semibold text-cream; }
   .prose-rl ul { @apply mb-4 list-disc space-y-1 pl-5 text-cream/85; }
 }
+
+/* ------------------------------------------------------------------
+   Emblema em destaque: objeto iluminado suspenso no escuro.
+   --scroll (0→1) recua o emblema ao rolar; --tilt-x/--tilt-y seguem o ponteiro.
+   ------------------------------------------------------------------ */
+@layer components {
+  .emblem-stage {
+    --scroll: 0;
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+    position: relative;
+    perspective: 1200px;
+    transform: scale(calc(1 - var(--scroll) * 0.18)) translateY(calc(var(--scroll) * 40px));
+    opacity: calc(1 - var(--scroll) * 0.55);
+    will-change: transform, opacity;
+  }
+  .emblem-glow {
+    position: absolute;
+    inset: -28%;
+    z-index: -1;
+    border-radius: 9999px;
+    background: radial-gradient(circle, rgba(214, 170, 82, 0.42) 0%, rgba(150, 105, 30, 0.18) 38%, transparent 68%);
+    filter: blur(24px);
+    animation: emblem-breathe 6s ease-in-out infinite;
+  }
+  .emblem-float { animation: emblem-float 7s ease-in-out infinite; }
+  .emblem-tilt {
+    position: relative;
+    border-radius: 9999px;
+    overflow: hidden;
+    transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    /* Bordas que se fundem com o preto, como a peça sob um spot de luz. */
+    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(230, 207, 139, 0.15);
+  }
+  .emblem-sheen {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(115deg, transparent 38%, rgba(255, 238, 190, 0.28) 46%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 230, 170, 0.3) 54%, transparent 62%);
+    background-size: 250% 100%;
+    background-position: 150% 0;
+    mix-blend-mode: screen;
+    animation: emblem-sheen 6.5s ease-in-out 1.2s infinite;
+  }
+  /* Em repouso a peça fica um pouco "na penumbra"; o feixe de luz a acende ao passar. */
+  .emblem-tilt img { filter: brightness(0.86) saturate(1.08); }
+  .emblem-reflection {
+    position: absolute;
+    left: 15%;
+    right: 15%;
+    bottom: -9%;
+    height: 8%;
+    border-radius: 9999px;
+    background: radial-gradient(ellipse, rgba(201, 165, 76, 0.35), transparent 70%);
+    filter: blur(8px);
+    animation: emblem-shadow 7s ease-in-out infinite;
+  }
+}
+
+@keyframes emblem-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes emblem-shadow {
+  0%, 100% { transform: scaleX(1); opacity: 0.9; }
+  50% { transform: scaleX(0.82); opacity: 0.55; }
+}
+@keyframes emblem-breathe {
+  0%, 100% { opacity: 0.75; transform: scale(0.96); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+@keyframes emblem-sheen {
+  0% { background-position: 150% 0; }
+  45%, 100% { background-position: -60% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .emblem-glow, .emblem-float, .emblem-sheen, .emblem-reflection { animation: none; }
+  .emblem-stage { transform: none; opacity: 1; }
+}

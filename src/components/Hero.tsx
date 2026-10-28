@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useStore } from '../context/StoreContext';
 import type { Banner } from '../types';
 import { ChevronLeft, ChevronRight } from './Icons';
+import EmblemShowcase from './EmblemShowcase';
 import { emblemUrl } from './Logo';
 
 function CtaLink({ banner }: { banner: Banner }) {
@@ -51,16 +52,7 @@ export default function Hero() {
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_22%,#3b2b0e_0%,#120d04_38%,#000_70%)] md:bg-[radial-gradient(ellipse_at_74%_48%,#3b2b0e_0%,#120d04_35%,#000_65%)]" />
       )}
       <div className={`container-page flex flex-col items-center gap-8 pb-16 pt-12 text-center md:min-h-[600px] md:flex-row md:justify-between md:py-24 md:text-left ${current.image_url ? 'min-h-[60vh] justify-end' : ''}`} aria-live="polite">
-        {!current.image_url && (
-          <img
-            src={settings.logo_url || emblemUrl}
-            alt={`Emblema ${settings.store_name}`}
-            width={360}
-            height={360}
-            className="w-44 sm:w-56 md:order-2 md:w-80 lg:w-[420px]"
-            {...{ fetchpriority: 'high' }}
-          />
-        )}
+        {!current.image_url && <EmblemShowcase src={settings.logo_url || emblemUrl} alt={`Emblema ${settings.store_name}`} />}
         <div className="max-w-xl md:order-1">
           <p className="eyebrow">{settings.store_name}</p>
           <h1 className="mt-3 font-display text-[44px] font-semibold leading-[1.05] text-cream sm:text-[64px] lg:text-[80px]">{current.title}</h1>
