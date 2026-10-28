@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useStore } from '../context/StoreContext';
 import type { Banner } from '../types';
 import { ChevronLeft, ChevronRight } from './Icons';
+import { emblemUrl } from './Logo';
 
 function CtaLink({ banner }: { banner: Banner }) {
   const href = banner.cta_link || '/catalogo';
@@ -42,19 +43,31 @@ export default function Hero() {
       onBlur={() => setPaused(false)}
     >
       {current.image_url ? (
-        <img src={current.image_url} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover" {...{ fetchpriority: 'high' }} width={1600} height={900} />
+        <>
+          <img src={current.image_url} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover" {...{ fetchpriority: 'high' }} width={1600} height={900} />
+          <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/70 to-ink/20 md:bg-gradient-to-r md:from-ink md:via-ink/80 md:to-ink/10" />
+        </>
       ) : (
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_70%_40%,#3a2d10_0%,#141006_45%,#0b0b0b_80%)]" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_25%,#3a2d10_0%,#141006_45%,#0b0b0b_80%)] md:bg-[radial-gradient(ellipse_at_72%_45%,#3a2d10_0%,#141006_45%,#0b0b0b_80%)]" />
       )}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/80 to-ink/10" />
-      <div className="container-page flex min-h-[70vh] flex-col justify-center py-20 sm:min-h-[560px]" aria-live="polite">
-        <p className="eyebrow">{settings.store_name}</p>
-        <h1 className="mt-4 max-w-xl font-display text-5xl font-semibold leading-[1.05] text-cream sm:text-6xl lg:text-7xl">
-          {current.title}
-        </h1>
-        {current.subtitle && <p className="mt-5 max-w-md text-base text-cream/80 sm:text-lg">{current.subtitle}</p>}
-        <div className="mt-8 flex flex-wrap gap-3">
-          <CtaLink banner={current} />
+      <div className={`container-page flex flex-col items-center gap-8 pb-16 pt-10 text-center md:min-h-[560px] md:flex-row md:justify-between md:py-20 md:text-left ${current.image_url ? 'min-h-[60vh] justify-end' : ''}`} aria-live="polite">
+        {!current.image_url && (
+          <img
+            src={settings.logo_url || emblemUrl}
+            alt={`Emblema ${settings.store_name}`}
+            width={360}
+            height={360}
+            className="w-44 drop-shadow-[0_10px_40px_rgba(201,165,76,0.25)] sm:w-56 md:order-2 md:w-80 lg:w-96"
+            {...{ fetchpriority: 'high' }}
+          />
+        )}
+        <div className="max-w-xl md:order-1">
+          <p className="eyebrow">{settings.store_name}</p>
+          <h1 className="mt-4 font-display text-[2.6rem] font-semibold leading-[1.1] text-cream sm:text-6xl lg:text-7xl">{current.title}</h1>
+          {current.subtitle && <p className="mx-auto mt-5 max-w-md text-base text-cream/80 sm:text-lg md:mx-0">{current.subtitle}</p>}
+          <div className="mt-8 flex flex-wrap justify-center gap-3 md:justify-start">
+            <CtaLink banner={current} />
+          </div>
         </div>
       </div>
       {slides.length > 1 && (

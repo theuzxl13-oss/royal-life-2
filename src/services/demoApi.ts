@@ -10,7 +10,7 @@ import { effectivePrice } from '../lib/format';
  * não está configurado, para pré-visualizar o site. Os dados ficam somente
  * neste navegador e NÃO são uma solução de produção.
  */
-const KEY = 'royal-life-demo-v5';
+const KEY = 'royal-life-demo-v6';
 const AUTH_KEY = 'royal-life-demo-auth';
 export const DEMO_ADMIN = { email: 'demo@royallife.local', password: 'demo1234' };
 

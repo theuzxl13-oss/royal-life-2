@@ -24,19 +24,6 @@ export function bottleSvg(liquid: string, cap: string, label: string, shape = 0,
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
-export function bannerSvg() {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
-<defs><radialGradient id="g" cx=".72" cy=".45" r=".6"><stop offset="0" stop-color="#3a2d10"/><stop offset=".55" stop-color="#141006"/><stop offset="1" stop-color="#0b0b0b"/></radialGradient>
-<linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9c7c2e"/><stop offset=".5" stop-color="#e6cf8b"/><stop offset="1" stop-color="#9c7c2e"/></linearGradient></defs>
-<rect width="1600" height="900" fill="url(#g)"/>
-<g opacity=".9" transform="translate(1080 170)"><rect x="70" y="0" width="120" height="110" rx="10" fill="url(#gold)"/>
-<rect x="0" y="100" width="260" height="420" rx="30" fill="#c9a54c" fill-opacity=".18" stroke="url(#gold)" stroke-width="3"/>
-<rect x="40" y="260" width="180" height="90" rx="6" fill="#0b0b0b" fill-opacity=".7" stroke="#c9a54c"/>
-<path d="M30 140q14 160 0 340" stroke="#fff" stroke-opacity=".15" stroke-width="16" fill="none" stroke-linecap="round"/></g>
-<g fill="none" stroke="#c9a54c" stroke-opacity=".12"><circle cx="1210" cy="430" r="330"/><circle cx="1210" cy="430" r="400"/></g></svg>`;
-  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-}
-
 export const demoCategories: Category[] = [
   ['Femininos', 'femininos'],
   ['Masculinos', 'masculinos'],
@@ -60,7 +47,7 @@ export const demoBanners: Banner[] = [
     id: 'banner-1',
     title: 'Sua essência. Sua presença.',
     subtitle: 'Fragrâncias selecionadas para marcar cada momento.',
-    image_url: bannerSvg(),
+    image_url: null,
     cta_label: 'Explorar catálogo',
     cta_link: '/catalogo',
     sort_order: 1,
