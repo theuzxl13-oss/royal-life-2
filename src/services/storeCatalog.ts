@@ -56,6 +56,7 @@ const entries: Entry[] = [
     details:
       'Família olfativa: oriental floral\nNotas de topo: amêndoa, café\nNotas de coração: tuberosa, jasmim sambac\nNotas de fundo: fava tonka, cacau',
     look: ['#1a2a5c', 'GOOD GIRL', 2],
+    photo: 'good-girl-carolina-herrera.webp',
   },
   {
     name: '212 VIP Rosé',
@@ -70,6 +71,7 @@ const entries: Entry[] = [
     details:
       'Família olfativa: floral frutado\nNotas de topo: acorde de champanhe rosé, pimenta-rosa\nNotas de coração: flor de pêssego\nNotas de fundo: madeiras, almíscar',
     look: ['#e8a3b4', '212 VIP ROSÉ', 0],
+    photo: '212-vip-rose-carolina-herrera.webp',
   },
   {
     name: 'La Vie Est Belle',
@@ -85,6 +87,7 @@ const entries: Entry[] = [
     details:
       'Família olfativa: floral gourmand\nNotas de topo: groselha negra, pera\nNotas de coração: íris, jasmim, flor de laranjeira\nNotas de fundo: pralinê, baunilha, patchouli, fava tonka',
     look: ['#d9a7b0', 'LA VIE EST BELLE', 1],
+    photo: 'la-vie-est-belle-lancome.webp',
   },
   {
     name: 'Libre',
@@ -99,6 +102,7 @@ const entries: Entry[] = [
     details:
       'Família olfativa: floral aromático\nNotas de topo: lavanda, mandarina, groselha negra\nNotas de coração: flor de laranjeira, jasmim\nNotas de fundo: baunilha, almíscar, cedro, âmbar gris',
     look: ['#e7c27a', 'LIBRE', 0],
+    photo: 'libre-yves-saint-laurent.webp',
   },
   {
     name: 'Sauvage',
@@ -114,6 +118,7 @@ const entries: Entry[] = [
     details:
       'Família olfativa: aromático fougère\nNotas de topo: bergamota da Calábria\nNotas de coração: pimenta de Sichuan, lavanda, anis-estrelado, noz-moscada\nNotas de fundo: ambroxan, baunilha',
     look: ['#2b3f63', 'SAUVAGE', 0],
+    photo: 'sauvage-dior.webp',
   },
   {
     name: '1 Million',

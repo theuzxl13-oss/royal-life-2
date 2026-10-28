@@ -30,7 +30,7 @@ Ideal para a noite e ocasiões especiais.',
 Notas de topo: amêndoa, café
 Notas de coração: tuberosa, jasmim sambac
 Notas de fundo: fava tonka, cacau',
-   599.90, 5, '{}', true, false, true),
+   599.90, 5, array['/produtos/good-girl-carolina-herrera.webp'], true, false, true),
   ('212 VIP Rosé', '212-vip-rose-carolina-herrera', (select id from public.brands where slug = 'carolina-herrera'), (select id from public.categories where slug = 'femininos'), '80 ml · Eau de Parfum',
    'Floral frutado e efervescente, com o espírito festivo de um brinde.',
    'Alegre e vibrante, 212 VIP Rosé combina o frescor do acorde de champanhe rosé com flores delicadas e um fundo amadeirado suave.
@@ -40,7 +40,7 @@ Perfeito para festas, encontros e momentos de celebração.',
 Notas de topo: acorde de champanhe rosé, pimenta-rosa
 Notas de coração: flor de pêssego
 Notas de fundo: madeiras, almíscar',
-   549.90, 5, '{}', false, false, true),
+   549.90, 5, array['/produtos/212-vip-rose-carolina-herrera.webp'], false, false, true),
   ('La Vie Est Belle', 'la-vie-est-belle-lancome', (select id from public.brands where slug = 'lancome'), (select id from public.categories where slug = 'femininos'), '100 ml · Eau de Parfum',
    'Floral gourmand envolvente, doce na medida certa, com íris e pralinê.',
    'Um clássico contemporâneo. La Vie Est Belle traz a elegância da íris envolta em pralinê e baunilha, criando um rastro confortável, feminino e muito marcante.
@@ -50,7 +50,7 @@ Versátil, vai bem do dia à noite.',
 Notas de topo: groselha negra, pera
 Notas de coração: íris, jasmim, flor de laranjeira
 Notas de fundo: pralinê, baunilha, patchouli, fava tonka',
-   579.90, 5, '{}', true, false, true),
+   579.90, 5, array['/produtos/la-vie-est-belle-lancome.webp'], true, false, true),
   ('Libre', 'libre-yves-saint-laurent', (select id from public.brands where slug = 'yves-saint-laurent'), (select id from public.categories where slug = 'femininos'), '90 ml · Eau de Parfum',
    'Floral com lavanda e flor de laranjeira: a liberdade em forma de perfume.',
    'Libre contrasta o frescor aromático da lavanda com a sensualidade da flor de laranjeira e um fundo quente de baunilha. Moderno, elegante e cheio de atitude.
@@ -60,7 +60,7 @@ Para a mulher que faz as próprias escolhas.',
 Notas de topo: lavanda, mandarina, groselha negra
 Notas de coração: flor de laranjeira, jasmim
 Notas de fundo: baunilha, almíscar, cedro, âmbar gris',
-   649.90, 5, '{}', false, false, true),
+   649.90, 5, array['/produtos/libre-yves-saint-laurent.webp'], false, false, true),
   ('Sauvage', 'sauvage-dior', (select id from public.brands where slug = 'dior'), (select id from public.categories where slug = 'masculinos'), '100 ml · Eau de Parfum',
    'Fresco, apimentado e levemente baunilhado: a versão Eau de Parfum de um dos masculinos mais marcantes.',
    'Sauvage Eau de Parfum combina a bergamota da Calábria com pimenta de Sichuan e especiarias, sobre um fundo de ambroxan e baunilha. Mais envolvente que a versão Eau de Toilette, com rastro intenso e elegante.
@@ -70,7 +70,7 @@ Funciona bem em qualquer ocasião.',
 Notas de topo: bergamota da Calábria
 Notas de coração: pimenta de Sichuan, lavanda, anis-estrelado, noz-moscada
 Notas de fundo: ambroxan, baunilha',
-   699.90, 5, '{}', true, false, true),
+   699.90, 5, array['/produtos/sauvage-dior.webp'], true, false, true),
   ('1 Million', '1-million-rabanne', (select id from public.brands where slug = 'rabanne'), (select id from public.categories where slug = 'masculinos'), '100 ml · Eau de Toilette',
    'Especiado e couro, com toque doce: ousado, sedutor e cheio de presença.',
    '1 Million abre com frescor cítrico e evolui para um coração de rosa e canela, finalizando em couro e âmbar. Uma fragrância confiante, para quem gosta de ser notado.
