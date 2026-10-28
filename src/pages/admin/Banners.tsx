@@ -3,6 +3,7 @@ import ImageField from '../../components/admin/ImageField';
 import Notice from '../../components/admin/Notice';
 import Spinner from '../../components/Spinner';
 import { useStore } from '../../context/StoreContext';
+import { isSafeHttps, isSafeInternalPath } from '../../lib/format';
 import { api } from '../../services';
 import type { Banner } from '../../types';
 
@@ -24,7 +25,7 @@ export default function Banners() {
     if (!editing) return;
     const v = editing.values;
     if (!v.title.trim()) return setError('Informe o título do banner.');
-    if (v.cta_link && !/^(\/|https:\/\/)/.test(v.cta_link)) return setError('O link deve começar com / (página do site) ou https://');
+    if (v.cta_link && !isSafeInternalPath(v.cta_link) && !isSafeHttps(v.cta_link)) return setError('O link deve ser uma página do site (ex.: /catalogo) ou começar com https://');
     try {
       await api.saveBanner({ ...v, title: v.title.trim() }, editing.id);
       setEditing(null);

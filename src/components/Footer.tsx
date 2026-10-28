@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useStore } from '../context/StoreContext';
+import { isSafeHttps } from '../lib/format';
 import { whatsappLink } from '../lib/whatsapp';
 import { ClockIcon, InstagramIcon, MailIcon, PinIcon, WhatsAppIcon } from './Icons';
 import Logo from './Logo';
@@ -32,7 +33,7 @@ export default function Footer() {
                 <WhatsAppIcon width={16} height={16} /> WhatsApp{settings.whatsapp_number ? '' : ' (número a configurar)'}
               </a>
             </li>
-            {settings.instagram_url && (
+            {isSafeHttps(settings.instagram_url) && (
               <li>
                 <a href={settings.instagram_url} target="_blank" rel="noopener noreferrer" className="footer-link inline-flex items-center gap-2">
                   <InstagramIcon width={16} height={16} /> Instagram

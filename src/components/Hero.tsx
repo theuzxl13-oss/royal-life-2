@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useStore } from '../context/StoreContext';
+import { isSafeHttps, isSafeInternalPath } from '../lib/format';
 import type { Banner } from '../types';
 import { ChevronLeft, ChevronRight } from './Icons';
 import EmblemShowcase from './EmblemShowcase';
 import { emblemUrl } from './Logo';
 
 function CtaLink({ banner }: { banner: Banner }) {
-  const href = banner.cta_link || '/catalogo';
+  const raw = banner.cta_link || '/catalogo';
+  // Só links do próprio site ou https (mesma regra do banco).
+  const href = isSafeInternalPath(raw) || isSafeHttps(raw) ? raw : '/catalogo';
   const label = banner.cta_label || 'Explorar catálogo';
-  return /^https?:\/\//.test(href) ? (
+  return isSafeHttps(href) ? (
     <a href={href} className="btn-gold" target="_blank" rel="noopener noreferrer">{label}</a>
   ) : (
     <Link to={href} className="btn-gold">{label}</Link>

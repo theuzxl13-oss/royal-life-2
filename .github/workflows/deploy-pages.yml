@@ -31,6 +31,9 @@ jobs:
       - name: Build
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
+          GH_PAGES: 'true'
+          # Prévia pública: sem os secrets do Supabase, roda em modo demonstração.
+          VITE_DEMO_MODE: ${{ secrets.VITE_SUPABASE_URL == '' && 'true' || 'false' }}
           # Opcional: cadastre estes secrets (Settings > Secrets and variables > Actions)
           # para publicar conectado ao Supabase. Sem eles, o site roda em modo demonstração.
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}

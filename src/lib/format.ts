@@ -22,3 +22,7 @@ export const formatDate = (iso: string) =>
 
 /** Imagens SVG embutidas são ilustrações provisórias, não fotos do produto. */
 export const isIllustration = (src: string) => src.startsWith('data:image/svg+xml');
+
+/** Mesma regra do banco (is_safe_url): caminho interno ("/catalogo") ou https://. */
+export const isSafeInternalPath = (href: string) => /^\/(?![/\\])\S*$/.test(href);
+export const isSafeHttps = (href: string) => /^https:\/\/\S+$/.test(href);

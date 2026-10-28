@@ -3,6 +3,8 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useSeo } from '../../hooks/useSeo';
 import { demoMode } from '../../lib/config';
+import { applyAdminManifest } from '../../lib/install';
+import InstallAppButton from './InstallAppButton';
 import { CloseIcon, MenuIcon } from '../Icons';
 import Logo from '../Logo';
 
@@ -24,6 +26,7 @@ export default function AdminLayout() {
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+  useEffect(() => applyAdminManifest(), []);
 
   const nav = (
     <nav aria-label="Administração" className="flex flex-col gap-1">
@@ -35,6 +38,7 @@ export default function AdminLayout() {
       ))}
       <Link to="/" className="mt-4 rounded px-3 py-2.5 text-sm text-cream/60 hover:bg-white/5" target="_blank">Ver site ↗</Link>
       <button type="button" onClick={signOut} className="rounded px-3 py-2.5 text-left text-sm text-cream/60 hover:bg-white/5">Sair</button>
+      <InstallAppButton />
     </nav>
   );
 

@@ -58,8 +58,9 @@ Outros comandos: `npm test` (testes), `npm run build` (gera `dist/`) e `npm run 
 | `VITE_SUPABASE_ANON_KEY` | Sim (produção) | Chave `anon` (pública) |
 | `VITE_SITE_URL` | Não | URL pública, usada no link canônico (SEO) |
 | `VITE_BASE_PATH` | Não | Subpasta de publicação (ex.: `/royal-life-2/`) |
+| `VITE_DEMO_MODE` | Não | `true` só para prévias sem banco (ex.: GitHub Pages) |
 
-**Sem** `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY`, o site entra em **modo demonstração**: produtos ilustrativos marcados como "Demonstração", dados salvos apenas no navegador e login de teste `demo@royallife.local` / `demo1234`. Esse modo serve só para visualizar o projeto. Com o Supabase configurado, ele é desativado automaticamente e nenhum produto fictício aparece.
+Com `VITE_DEMO_MODE=true` e **sem** `VITE_SUPABASE_URL`/`VITE_SUPABASE_ANON_KEY`, o site entra em **modo demonstração**: produtos ilustrativos marcados como "Demonstração", dados salvos apenas no navegador e login de teste `demo@royallife.local` / `demo1234`. Esse modo serve só para visualizar o projeto. Por segurança, o build de produção **falha** se não houver Supabase nem `VITE_DEMO_MODE=true` — assim o login de teste nunca vai ao ar por engano.
 
 ---
 
@@ -83,14 +84,37 @@ Outros comandos: `npm test` (testes), `npm run build` (gera `dist/`) e `npm run 
 
 O build gera arquivos estáticos em `dist/`.
 
-- **Vercel**: importe o repositório e defina as variáveis de ambiente. O `vercel.json` já cuida das rotas.
-- **Netlify**: comando de build `npm run build`, pasta `dist`. O `public/_redirects` já cuida das rotas.
-- **GitHub Pages**: o workflow `.github/workflows/deploy-pages.yml` testa, gera o build e publica na branch `gh-pages` a cada push.
-  - Em **Settings → Pages**, escolha *Deploy from a branch* → `gh-pages` / `(root)` caso o GitHub não tenha ativado sozinho.
-  - Para conectar ao banco, cadastre `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` em **Settings → Secrets and variables → Actions**. Sem esses secrets, a página publicada fica em modo demonstração.
-  - O `404.html` gerado no build permite URLs amigáveis (sem `#`).
+### Cloudflare Pages (recomendado)
 
-Para usar um domínio próprio, configure-o na hospedagem e ajuste `VITE_SITE_URL` (e `VITE_BASE_PATH=/`).
+1. Configure o banco antes (seção acima) e tenha em mãos a URL e a chave `anon` do Supabase.
+2. No painel da Cloudflare: **Workers e Pages → Criar → Pages → Conectar ao Git** e escolha este repositório.
+3. Configurações de build:
+   - **Branch de produção:** a branch principal do repositório
+   - **Comando de build:** `npm run build`
+   - **Diretório de saída:** `dist`
+4. **Variáveis de ambiente** (Produção):
+   - `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` (a chave `anon`, nunca a `service_role`)
+   - `VITE_SITE_URL` = endereço final, ex.: `https://royallife.com.br`
+   - `NODE_VERSION` = `20`
+5. **Salvar e publicar.** A cada envio para a branch, a Cloudflare publica de novo.
+6. **Domínio próprio:** no projeto → **Domínios personalizados → Configurar domínio**.
+   Depois, atualize `VITE_SITE_URL` e o *Site URL* no Supabase.
+
+Já incluído no projeto: rotas amigáveis (a Cloudflare serve o `index.html` automaticamente) e
+cabeçalhos de segurança em `public/_headers`. Se usar outro domínio de banco que não
+`*.supabase.co`, ajuste o `connect-src` nesse arquivo.
+
+### Outras opções
+
+- **GitHub Pages (prévia):** o workflow `.github/workflows/deploy-pages.yml` publica na branch `gh-pages`
+  (em modo demonstração quando não há secrets do Supabase).
+- **Netlify:** comando `npm run build`, pasta `dist` (o `netlify.toml` cuida das rotas).
+- **Vercel:** o `vercel.json` cuida das rotas.
+
+### Segurança e aplicativo do dono
+
+- Checklist de segurança antes do lançamento: [`docs/SEGURANCA.md`](docs/SEGURANCA.md)
+- Como instalar o painel como aplicativo / gerar APK: [`docs/APP-PAINEL.md`](docs/APP-PAINEL.md)
 
 ---
 

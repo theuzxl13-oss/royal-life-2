@@ -1,10 +1,11 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Logo from '../../components/Logo';
 import Notice from '../../components/admin/Notice';
 import { useAuth } from '../../context/AuthContext';
 import { useSeo } from '../../hooks/useSeo';
 import { demoMode } from '../../lib/config';
+import { applyAdminManifest } from '../../lib/install';
 import { DEMO_ADMIN } from '../../services/demoApi';
 
 export default function Login() {
@@ -17,6 +18,7 @@ export default function Login() {
   const [busy, setBusy] = useState(false);
   const [attempts, setAttempts] = useState(0);
   useSeo({ title: 'Entrar no painel', noindex: true });
+  useEffect(() => applyAdminManifest(), []);
 
   const from = (location.state as { from?: string } | null)?.from ?? '/admin';
   if (session?.isAdmin) return <Navigate to={from} replace />;

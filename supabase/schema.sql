@@ -126,6 +126,10 @@ create table if not exists public.orders (
   updated_at timestamptz not null default now()
 );
 
+-- Identificador anônimo do cliente (hash do IP) para limitar pedidos em massa.
+alter table public.orders add column if not exists client_key text;
+create index if not exists orders_client_key_idx on public.orders (client_key, created_at);
+
 drop trigger if exists orders_touch on public.orders;
 create trigger orders_touch before update on public.orders
   for each row execute function public.touch_updated_at();
@@ -147,7 +151,21 @@ declare
   v_total numeric(10,2) := 0;
   v_code text;
   v_id uuid;
+  v_headers json;
+  v_ip text;
+  v_client text;
 begin
+  -- Limite de envios: 5 pedidos a cada 10 minutos por cliente e 100 por hora no total.
+  v_headers := nullif(current_setting('request.headers', true), '')::json;
+  v_ip := coalesce(v_headers ->> 'cf-connecting-ip', split_part(v_headers ->> 'x-forwarded-for', ',', 1), 'desconhecido');
+  v_client := md5('royal-life:' || trim(v_ip));
+  if (select count(*) from public.orders where client_key = v_client and created_at > now() - interval '10 minutes') >= 5 then
+    raise exception 'Muitos pedidos em sequência. Aguarde alguns minutos ou fale conosco pelo WhatsApp.';
+  end if;
+  if (select count(*) from public.orders where created_at > now() - interval '1 hour') >= 100 then
+    raise exception 'Estamos com muitos pedidos agora. Tente novamente em instantes ou fale conosco pelo WhatsApp.';
+  end if;
+
   if p_customer_name is null or char_length(trim(p_customer_name)) < 2 then
     raise exception 'Informe seu nome.';
   end if;
@@ -156,6 +174,13 @@ begin
   end if;
   if jsonb_array_length(p_items) > 50 then
     raise exception 'Itens demais no pedido.';
+  end if;
+  -- Cada produto só pode aparecer uma vez (senão a soma das linhas passaria do estoque).
+  if (select count(distinct e ->> 'product_id') from jsonb_array_elements(p_items) e) <> jsonb_array_length(p_items) then
+    raise exception 'Produto repetido no pedido.';
+  end if;
+  if char_length(coalesce(p_notes, '')) > 1000 then
+    raise exception 'Observações muito longas.';
   end if;
 
   for v_item in select * from jsonb_array_elements(p_items) loop
@@ -178,8 +203,8 @@ begin
   v_code := 'RL' || to_char(now() at time zone 'America/Sao_Paulo', 'YYMMDD') || '-' ||
             upper(substr(replace(gen_random_uuid()::text, '-', ''), 1, 5));
 
-  insert into public.orders (code, customer_name, notes, items, total)
-    values (v_code, trim(p_customer_name), nullif(trim(coalesce(p_notes, '')), ''), v_items, v_total)
+  insert into public.orders (code, customer_name, notes, items, total, client_key)
+    values (v_code, trim(p_customer_name), nullif(trim(coalesce(p_notes, '')), ''), v_items, v_total, v_client)
     returning id into v_id;
 
   return query select v_id, v_code, v_total, v_items;
@@ -188,6 +213,30 @@ $$;
 
 revoke all on function public.create_order(text, text, jsonb) from public;
 grant execute on function public.create_order(text, text, jsonb) to anon, authenticated;
+
+-- ---------------------------------------------------------------------
+-- Links e imagens aceitos: vazio, caminho do próprio site ("/catalogo")
+-- ou https://. Bloqueia javascript:, data:, "//outro-site" e "/\outro-site".
+-- ---------------------------------------------------------------------
+create or replace function public.is_safe_url(u text)
+returns boolean language sql immutable as $$
+  select u is null or u = '' or u ~ '^https://[^\s]+$' or u ~ '^/([^/\\\s][^\s]*)?$';
+$$;
+
+create or replace function public.are_safe_urls(arr text[])
+returns boolean language sql immutable as $$
+  select coalesce(bool_and(public.is_safe_url(x)), true) from unnest(arr) as x;
+$$;
+
+alter table public.products drop constraint if exists products_images_safe;
+alter table public.products add constraint products_images_safe check (public.are_safe_urls(images));
+alter table public.categories drop constraint if exists categories_image_safe;
+alter table public.categories add constraint categories_image_safe check (public.is_safe_url(image_url));
+alter table public.banners drop constraint if exists banners_urls_safe;
+alter table public.banners add constraint banners_urls_safe check (public.is_safe_url(image_url) and public.is_safe_url(cta_link));
+alter table public.settings drop constraint if exists settings_urls_safe;
+alter table public.settings add constraint settings_urls_safe
+  check (public.is_safe_url(logo_url) and (instagram_url = '' or instagram_url ~ '^https://[^\s]+$'));
 
 -- ---------------------------------------------------------------------
 -- Row Level Security
@@ -239,7 +288,7 @@ create policy "orders_admin_all" on public.orders for all using (public.is_admin
 -- Storage: bucket público de imagens; somente administradores enviam/excluem.
 -- ---------------------------------------------------------------------
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-values ('catalog', 'catalog', true, 5242880, array['image/jpeg', 'image/png', 'image/webp', 'image/avif', 'image/svg+xml'])
+values ('catalog', 'catalog', true, 5242880, array['image/jpeg', 'image/png', 'image/webp', 'image/avif'])
 on conflict (id) do update set public = true, file_size_limit = excluded.file_size_limit,
   allowed_mime_types = excluded.allowed_mime_types;
 

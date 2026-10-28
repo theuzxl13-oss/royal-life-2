@@ -1,0 +1,5 @@
+# Só para Netlify (a Cloudflare Pages já trata rotas de SPA sozinha).
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
