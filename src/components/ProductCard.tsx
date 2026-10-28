@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useStore } from '../context/StoreContext';
-import { hasPromo } from '../lib/format';
+import { hasPromo, isIllustration } from '../lib/format';
 import type { Product } from '../types';
 import Price from './Price';
 
@@ -18,7 +18,7 @@ export default function ProductCard({ product }: { product: Product }) {
         {img ? (
           <img
             src={img}
-            alt={`${product.name}${brand ? ` — ${brand}` : ''}`}
+            alt={`${isIllustration(img) ? 'Imagem ilustrativa de ' : ''}${product.name}${brand ? ` — ${brand}` : ''}`}
             loading="lazy"
             decoding="async"
             width={400}
@@ -53,7 +53,7 @@ export default function ProductCard({ product }: { product: Product }) {
           className="btn-outline mt-2 w-full px-2 py-2 text-xs tracking-[0.08em]"
           aria-label={out ? `${product.name} esgotado` : `Adicionar ${product.name} ao carrinho`}
         >
-          {out ? 'Esgotado' : <>Adicionar<span className="hidden sm:inline"> ao carrinho</span></>}
+          {out ? 'Esgotado' : <span>Adicionar<span className="hidden sm:inline"> ao carrinho</span></span>}
         </button>
       </div>
     </article>

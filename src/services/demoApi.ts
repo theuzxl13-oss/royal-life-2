@@ -1,7 +1,8 @@
 import { blobToDataUrl, optimizeImage } from '../lib/image';
 import type { Banner, Brand, Category, Order, Product, Settings } from '../types';
 import { ApiError, type AdminSession, type Api } from './api';
-import { demoBanners, demoBrands, demoCategories, demoProducts, demoSettings } from './demoData';
+import { demoBanners, demoCategories, demoSettings } from './demoData';
+import { storeBrands, storeProducts } from './storeCatalog';
 import { effectivePrice } from '../lib/format';
 
 /**
@@ -9,7 +10,7 @@ import { effectivePrice } from '../lib/format';
  * não está configurado, para pré-visualizar o site. Os dados ficam somente
  * neste navegador e NÃO são uma solução de produção.
  */
-const KEY = 'royal-life-demo-v1';
+const KEY = 'royal-life-demo-v2';
 const AUTH_KEY = 'royal-life-demo-auth';
 export const DEMO_ADMIN = { email: 'demo@royallife.local', password: 'demo1234' };
 
@@ -25,8 +26,8 @@ interface Store {
 const seed = (): Store => ({
   settings: demoSettings,
   categories: demoCategories,
-  brands: demoBrands,
-  products: demoProducts,
+  brands: storeBrands,
+  products: storeProducts,
   banners: demoBanners,
   orders: [],
 });

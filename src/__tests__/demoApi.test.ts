@@ -9,7 +9,7 @@ beforeEach(async () => {
 
 describe('demoApi', () => {
   it('bloqueia escrita sem login (permissão)', async () => {
-    await expect(demoApi.deleteProduct('demo-1')).rejects.toThrow(/login/);
+    await expect(demoApi.deleteProduct('prod-sauvage-dior')).rejects.toThrow(/login/);
     await expect(demoApi.listOrders()).rejects.toThrow(/login/);
   });
 
@@ -34,9 +34,9 @@ describe('demoApi', () => {
 
   it('pedido usa preço do catálogo e respeita estoque', async () => {
     const products = await demoApi.listProducts();
-    const promo = products.find((p) => p.promo_price != null && p.stock > 0)!;
-    const order = await demoApi.createOrder('Cliente', '', [{ productId: promo.id, quantity: 1 }]);
-    expect(order.total).toBe(promo.promo_price);
+    const promo = products.find((p) => p.name === 'Khamrah')!;
+    const order = await demoApi.createOrder('Cliente', '', [{ productId: promo.id, quantity: 2 }]);
+    expect(order.total).toBeCloseTo(599.8);
     await expect(demoApi.createOrder('Cliente', '', [{ productId: promo.id, quantity: promo.stock + 1 }])).rejects.toThrow(/indisponível/);
     await expect(demoApi.createOrder('', '', [{ productId: promo.id, quantity: 1 }])).rejects.toThrow(/nome/);
     await demoApi.signIn(DEMO_ADMIN.email, DEMO_ADMIN.password);

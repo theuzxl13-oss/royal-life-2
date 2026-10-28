@@ -3,7 +3,17 @@ import { filterProducts } from '../lib/filters';
 import { effectivePrice, formatPrice, slugify } from '../lib/format';
 import { parseMoney, validateProduct } from '../lib/validation';
 import { normalizePhone, orderMessage, whatsappLink } from '../lib/whatsapp';
-import { demoProducts } from '../services/demoData';
+import { storeBrands, storeProducts as demoProducts } from '../services/storeCatalog';
+
+describe('catálogo da loja', () => {
+  it('15 produtos com preços informados e slugs válidos e únicos', () => {
+    expect(demoProducts.length).toBe(15);
+    expect(new Set(demoProducts.map((p) => p.slug)).size).toBe(15);
+    demoProducts.forEach((p) => expect(validateProduct(p)).toBeNull());
+    expect(demoProducts.find((p) => p.name === 'Sauvage')?.price).toBe(699.9);
+    expect(demoProducts.every((p) => p.promo_price === null && !p.demo)).toBe(true);
+  });
+});
 
 describe('format', () => {
   it('slugify remove acentos e símbolos', () => {
@@ -24,19 +34,20 @@ describe('format', () => {
 });
 
 describe('filtros', () => {
-  const brands = { 'brand-a': 'Marca Exemplo A', 'brand-b': 'Marca Exemplo B', 'brand-c': 'Marca Exemplo C' };
+  const brands = Object.fromEntries(storeBrands.map((b) => [b.id, b.name]));
   it('busca por nome sem acento e por marca', () => {
-    expect(filterProducts(demoProducts, { q: 'ambar' }, brands).map((p) => p.name)).toEqual(['Exemplo Oriental Âmbar']);
-    const byBrand = filterProducts(demoProducts, { q: 'lumiere' }, { ...brands, 'brand-b': 'Lumière' });
-    expect(byBrand.length).toBeGreaterThan(0);
-    expect(byBrand.every((p) => p.brand_id === 'brand-b')).toBe(true);
+    expect(filterProducts(demoProducts, { q: 'sauvage' }, brands).map((p) => p.name)).toEqual(['Sauvage']);
+    expect(filterProducts(demoProducts, { q: 'lancome' }, brands).map((p) => p.name)).toEqual(['La Vie Est Belle']);
+    expect(filterProducts(demoProducts, { q: 'lattafa' }, brands).length).toBe(3);
   });
   it('filtra por categoria, preço e disponibilidade', () => {
+    expect(filterProducts(demoProducts, { category: 'cat-arabes' }).length).toBe(4);
     expect(filterProducts(demoProducts, { category: 'cat-body-splash' }).length).toBe(2);
-    expect(filterProducts(demoProducts, { maxPrice: 80 }).every((p) => effectivePrice(p) <= 80)).toBe(true);
-    expect(filterProducts(demoProducts, { availability: 'out_of_stock' }).every((p) => p.stock === 0)).toBe(true);
-    expect(filterProducts(demoProducts, { availability: 'in_stock' }).every((p) => p.stock > 0)).toBe(true);
-    expect(filterProducts(demoProducts, { promo: true }).every((p) => p.promo_price != null)).toBe(true);
+    expect(filterProducts(demoProducts, { maxPrice: 300 }).every((p) => effectivePrice(p) <= 300)).toBe(true);
+    const withOut = demoProducts.map((p, i) => (i === 0 ? { ...p, stock: 0 } : p));
+    expect(filterProducts(withOut, { availability: 'out_of_stock' }).map((p) => p.id)).toEqual([demoProducts[0].id]);
+    expect(filterProducts(withOut, { availability: 'in_stock' }).every((p) => p.stock > 0)).toBe(true);
+    expect(filterProducts(demoProducts, { promo: true }).length).toBe(0);
   });
   it('ordena por preço', () => {
     const list = filterProducts(demoProducts, { sort: 'price_asc' });

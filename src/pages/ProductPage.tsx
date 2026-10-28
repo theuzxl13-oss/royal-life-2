@@ -8,7 +8,7 @@ import { useCart } from '../context/CartContext';
 import { useStore } from '../context/StoreContext';
 import { useSeo } from '../hooks/useSeo';
 import { siteUrl } from '../lib/config';
-import { effectivePrice } from '../lib/format';
+import { effectivePrice, isIllustration } from '../lib/format';
 import { productInquiryMessage, whatsappLink } from '../lib/whatsapp';
 import NotFound from './NotFound';
 
@@ -84,11 +84,14 @@ export default function ProductPage() {
         <section aria-label="Galeria de fotos">
           <div className="aspect-[4/5] overflow-hidden rounded-lg border border-white/10 bg-ink-800">
             {images.length ? (
-              <img src={images[imgIndex]} alt={`${product.name} — foto ${imgIndex + 1} de ${images.length}`} className="h-full w-full object-cover" width={800} height={1000} />
+              <img src={images[imgIndex]} alt={isIllustration(images[imgIndex]) ? `Imagem ilustrativa de ${product.name}` : `${product.name} — foto ${imgIndex + 1} de ${images.length}`} className="h-full w-full object-cover" width={800} height={1000} />
             ) : (
               <span className="flex h-full items-center justify-center text-cream/40">Sem foto</span>
             )}
           </div>
+          {images[imgIndex] && isIllustration(images[imgIndex]) && (
+            <p className="mt-2 text-xs text-cream/60">Imagem ilustrativa. A foto real do produto será adicionada em breve.</p>
+          )}
           {images.length > 1 && (
             <ul className="mt-3 flex gap-2 overflow-x-auto">
               {images.map((src, i) => (

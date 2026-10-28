@@ -19,3 +19,6 @@ export const hasPromo = (p: { price: number; promo_price: number | null }) =>
 
 export const formatDate = (iso: string) =>
   new Date(iso).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
+
+/** Imagens SVG embutidas são ilustrações provisórias, não fotos do produto. */
+export const isIllustration = (src: string) => src.startsWith('data:image/svg+xml');

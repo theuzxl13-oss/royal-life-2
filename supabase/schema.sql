@@ -254,15 +254,16 @@ create policy "catalog_admin_delete" on storage.objects for delete using (bucket
 
 -- ---------------------------------------------------------------------
 -- Categorias iniciais (ajuste no painel conforme o estoque real).
--- Nenhum produto é inserido: cadastre apenas produtos reais pelo painel.
+-- Os produtos da loja estão em supabase/seed-produtos.sql (opcional).
 -- ---------------------------------------------------------------------
 insert into public.categories (name, slug, sort_order) values
-  ('Masculinos', 'masculinos', 1),
-  ('Femininos', 'femininos', 2),
-  ('Unissex', 'unissex', 3),
-  ('Body Splash', 'body-splash', 4),
-  ('Kits', 'kits', 5),
-  ('Hidratantes', 'hidratantes', 6)
+  ('Femininos', 'femininos', 1),
+  ('Masculinos', 'masculinos', 2),
+  ('Árabes', 'arabes', 3),
+  ('Unissex', 'unissex', 4),
+  ('Body Splash', 'body-splash', 5),
+  ('Kits', 'kits', 6),
+  ('Hidratantes', 'hidratantes', 7)
 on conflict (slug) do nothing;
 
 -- ---------------------------------------------------------------------

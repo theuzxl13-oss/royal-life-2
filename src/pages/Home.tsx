@@ -34,6 +34,8 @@ export default function Home() {
   const featured = products.filter((p) => p.featured);
   const launches = products.filter((p) => p.is_new);
   const offers = products.filter(hasPromo);
+  // Na home, só categorias que já têm produtos (as vazias continuam no menu e no catálogo).
+  const visibleCategories = loading ? categories : categories.filter((c) => products.some((p) => p.category_id === c.id));
 
   return (
     <>
@@ -45,9 +47,9 @@ export default function Home() {
           <h2 id="categorias" className="section-title mt-2">Categorias</h2>
           <div className="gold-line" />
         </div>
-        <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-          {categories.map((c) => (
-            <li key={c.id}>
+        <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:flex lg:flex-wrap lg:justify-center">
+          {visibleCategories.map((c) => (
+            <li key={c.id} className="lg:w-44">
               <Link
                 to={`/catalogo/${c.slug}`}
                 className="group relative flex aspect-[4/3] items-end overflow-hidden rounded-lg border border-gold/20 bg-ink-800 p-4 transition hover:border-gold/60 sm:aspect-square"

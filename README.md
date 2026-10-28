@@ -68,13 +68,14 @@ Outros comandos: `npm test` (testes), `npm run build` (gera `dist/`) e `npm run 
 1. Crie um projeto em <https://supabase.com>.
 2. Abra **SQL Editor**, cole o conteúdo de [`supabase/schema.sql`](supabase/schema.sql) e execute. Isso cria as tabelas, as políticas RLS, a função de pedidos, o bucket de imagens e as categorias iniciais.
 3. Em **Authentication → Users**, crie o usuário administrador (e-mail e senha forte). Em **Authentication → Providers → Email**, desative "Allow new users to sign up" para que ninguém crie contas.
-4. Torne esse usuário administrador no SQL Editor:
+4. (Opcional) Para já começar com os 15 produtos da loja, execute também [`supabase/seed-produtos.sql`](supabase/seed-produtos.sql). Depois envie as fotos e ajuste o estoque no painel.
+5. Torne esse usuário administrador no SQL Editor:
    ```sql
    insert into public.admins (user_id)
    select id from auth.users where email = 'email-do-admin@exemplo.com';
    ```
-5. Copie a URL e a chave `anon` (**Project Settings → API**) para o `.env.local` ou para as variáveis da hospedagem.
-6. Entre em `/admin`, configure o **WhatsApp oficial**, envie a **logo**, revise os textos e as políticas e cadastre os produtos reais.
+6. Copie a URL e a chave `anon` (**Project Settings → API**) para o `.env.local` ou para as variáveis da hospedagem.
+7. Entre em `/admin`, configure o **WhatsApp oficial**, envie a **logo**, revise os textos e as políticas e cadastre os produtos reais.
 
 ---
 
