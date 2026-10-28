@@ -105,14 +105,14 @@ const entries: Entry[] = [
     slug: 'sauvage-dior',
     brand: 'dior',
     category: 'masculinos',
-    volume: '100 ml · Eau de Toilette',
+    volume: '100 ml · Eau de Parfum',
     price: 699.9,
     featured: true,
-    short: 'Fresco, apimentado e amadeirado: um dos masculinos mais marcantes da perfumaria.',
+    short: 'Fresco, apimentado e levemente baunilhado: a versão Eau de Parfum de um dos masculinos mais marcantes.',
     description:
-      'Sauvage combina a bergamota da Calábria com pimentas e um fundo de ambroxan que deixa um rastro intenso e limpo. Moderno, versátil e de ótima projeção.\n\nFunciona bem em qualquer ocasião.',
+      'Sauvage Eau de Parfum combina a bergamota da Calábria com pimenta de Sichuan e especiarias, sobre um fundo de ambroxan e baunilha. Mais envolvente que a versão Eau de Toilette, com rastro intenso e elegante.\n\nFunciona bem em qualquer ocasião.',
     details:
-      'Família olfativa: aromático fougère\nNotas de topo: bergamota da Calábria, pimenta\nNotas de coração: pimenta de Sichuan, lavanda, gerânio, vetiver\nNotas de fundo: ambroxan, cedro, ládano',
+      'Família olfativa: aromático fougère\nNotas de topo: bergamota da Calábria\nNotas de coração: pimenta de Sichuan, lavanda, anis-estrelado, noz-moscada\nNotas de fundo: ambroxan, baunilha',
     look: ['#2b3f63', 'SAUVAGE', 0],
   },
   {
@@ -128,20 +128,22 @@ const entries: Entry[] = [
     details:
       'Família olfativa: couro especiado\nNotas de topo: mandarina sanguínea, toranja, menta\nNotas de coração: rosa, canela, especiarias\nNotas de fundo: couro, âmbar, madeiras, patchouli',
     look: ['#c9a54c', '1 MILLION', 0],
+    photo: '1-million-rabanne.webp',
   },
   {
     name: 'Eros',
     slug: 'eros-versace',
     brand: 'versace',
     category: 'masculinos',
-    volume: '100 ml · Eau de Toilette',
+    volume: '100 ml · Eau de Parfum',
     price: 499.9,
-    short: 'Menta, maçã verde e baunilha: fresco e intenso ao mesmo tempo.',
+    short: 'Menta, maçã e baunilha em versão Eau de Parfum: fresco, intenso e mais encorpado.',
     description:
-      'Eros mistura o frescor da menta e da maçã verde com a doçura da fava tonka e da baunilha, sobre um fundo amadeirado. Vibrante, sedutor e de excelente fixação.\n\nUm dos favoritos para sair à noite.',
+      'Eros Eau de Parfum mistura o frescor do limão, da menta e da maçã com a doçura da baunilha, sobre um fundo amadeirado e levemente couro. Vibrante, sedutor e de excelente fixação.\n\nUm dos favoritos para sair à noite.',
     details:
-      'Família olfativa: aromático fougère\nNotas de topo: menta, maçã verde, limão\nNotas de coração: fava tonka, gerânio, ambroxan\nNotas de fundo: baunilha, cedro, vetiver, musgo de carvalho',
+      'Família olfativa: aromático fougère\nNotas de topo: limão, menta, maçã cristalizada\nNotas de coração: ambroxan, gerânio, sálvia esclareia\nNotas de fundo: baunilha, cedro, sândalo, patchouli, couro',
     look: ['#2f8f8a', 'EROS', 2],
+    photo: 'eros-versace.webp',
   },
   {
     name: 'Le Male Le Parfum',
@@ -156,6 +158,7 @@ const entries: Entry[] = [
     details:
       'Família olfativa: oriental amadeirado\nNotas de topo: cardamomo\nNotas de coração: lavanda, íris\nNotas de fundo: baunilha, madeiras',
     look: ['#1d1d1d', 'LE MALE', 1],
+    photo: 'le-male-le-parfum-jean-paul-gaultier.webp',
   },
   {
     name: 'Khamrah',
@@ -171,6 +174,7 @@ const entries: Entry[] = [
     details:
       'Família olfativa: oriental especiado\nNotas de topo: canela, noz-moscada, bergamota\nNotas de coração: tâmaras, pralinê, tuberosa\nNotas de fundo: baunilha, fava tonka, madeiras ambaradas, mirra, benjoim',
     look: ['#7a2e1a', 'KHAMRAH', 1],
+    photo: 'khamrah-lattafa.webp',
   },
   {
     name: 'Asad',
@@ -185,6 +189,7 @@ const entries: Entry[] = [
     details:
       'Família olfativa: âmbar especiado\nNotas de topo: pimenta-preta, abacaxi, tabaco\nNotas de coração: café, íris, patchouli\nNotas de fundo: baunilha, âmbar, benjoim, ládano',
     look: ['#3a2a14', 'ASAD', 0],
+    photo: 'asad-lattafa.webp',
   },
   {
     name: 'Yara',

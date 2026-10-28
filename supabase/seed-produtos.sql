@@ -61,15 +61,15 @@ Notas de topo: lavanda, mandarina, groselha negra
 Notas de coração: flor de laranjeira, jasmim
 Notas de fundo: baunilha, almíscar, cedro, âmbar gris',
    649.90, 5, '{}', false, false, true),
-  ('Sauvage', 'sauvage-dior', (select id from public.brands where slug = 'dior'), (select id from public.categories where slug = 'masculinos'), '100 ml · Eau de Toilette',
-   'Fresco, apimentado e amadeirado: um dos masculinos mais marcantes da perfumaria.',
-   'Sauvage combina a bergamota da Calábria com pimentas e um fundo de ambroxan que deixa um rastro intenso e limpo. Moderno, versátil e de ótima projeção.
+  ('Sauvage', 'sauvage-dior', (select id from public.brands where slug = 'dior'), (select id from public.categories where slug = 'masculinos'), '100 ml · Eau de Parfum',
+   'Fresco, apimentado e levemente baunilhado: a versão Eau de Parfum de um dos masculinos mais marcantes.',
+   'Sauvage Eau de Parfum combina a bergamota da Calábria com pimenta de Sichuan e especiarias, sobre um fundo de ambroxan e baunilha. Mais envolvente que a versão Eau de Toilette, com rastro intenso e elegante.
 
 Funciona bem em qualquer ocasião.',
    'Família olfativa: aromático fougère
-Notas de topo: bergamota da Calábria, pimenta
-Notas de coração: pimenta de Sichuan, lavanda, gerânio, vetiver
-Notas de fundo: ambroxan, cedro, ládano',
+Notas de topo: bergamota da Calábria
+Notas de coração: pimenta de Sichuan, lavanda, anis-estrelado, noz-moscada
+Notas de fundo: ambroxan, baunilha',
    699.90, 5, '{}', true, false, true),
   ('1 Million', '1-million-rabanne', (select id from public.brands where slug = 'rabanne'), (select id from public.categories where slug = 'masculinos'), '100 ml · Eau de Toilette',
    'Especiado e couro, com toque doce: ousado, sedutor e cheio de presença.',
@@ -80,17 +80,17 @@ Ideal para a noite e ocasiões especiais.',
 Notas de topo: mandarina sanguínea, toranja, menta
 Notas de coração: rosa, canela, especiarias
 Notas de fundo: couro, âmbar, madeiras, patchouli',
-   599.90, 5, '{}', false, false, true),
-  ('Eros', 'eros-versace', (select id from public.brands where slug = 'versace'), (select id from public.categories where slug = 'masculinos'), '100 ml · Eau de Toilette',
-   'Menta, maçã verde e baunilha: fresco e intenso ao mesmo tempo.',
-   'Eros mistura o frescor da menta e da maçã verde com a doçura da fava tonka e da baunilha, sobre um fundo amadeirado. Vibrante, sedutor e de excelente fixação.
+   599.90, 5, array['/produtos/1-million-rabanne.webp'], false, false, true),
+  ('Eros', 'eros-versace', (select id from public.brands where slug = 'versace'), (select id from public.categories where slug = 'masculinos'), '100 ml · Eau de Parfum',
+   'Menta, maçã e baunilha em versão Eau de Parfum: fresco, intenso e mais encorpado.',
+   'Eros Eau de Parfum mistura o frescor do limão, da menta e da maçã com a doçura da baunilha, sobre um fundo amadeirado e levemente couro. Vibrante, sedutor e de excelente fixação.
 
 Um dos favoritos para sair à noite.',
    'Família olfativa: aromático fougère
-Notas de topo: menta, maçã verde, limão
-Notas de coração: fava tonka, gerânio, ambroxan
-Notas de fundo: baunilha, cedro, vetiver, musgo de carvalho',
-   499.90, 5, '{}', false, false, true),
+Notas de topo: limão, menta, maçã cristalizada
+Notas de coração: ambroxan, gerânio, sálvia esclareia
+Notas de fundo: baunilha, cedro, sândalo, patchouli, couro',
+   499.90, 5, array['/produtos/eros-versace.webp'], false, false, true),
   ('Le Male Le Parfum', 'le-male-le-parfum-jean-paul-gaultier', (select id from public.brands where slug = 'jean-paul-gaultier'), (select id from public.categories where slug = 'masculinos'), '125 ml · Eau de Parfum',
    'Oriental amadeirado com cardamomo, lavanda e baunilha: elegante e intenso.',
    'Le Male Le Parfum é a versão mais sofisticada e profunda do clássico. O cardamomo abre caminho para a lavanda e a íris, que repousam sobre uma baunilha cremosa e amadeirada.
@@ -100,7 +100,7 @@ Perfeito para a noite e o clima mais frio.',
 Notas de topo: cardamomo
 Notas de coração: lavanda, íris
 Notas de fundo: baunilha, madeiras',
-   649.90, 5, '{}', false, false, true),
+   649.90, 5, array['/produtos/le-male-le-parfum-jean-paul-gaultier.webp'], false, false, true),
   ('Khamrah', 'khamrah-lattafa', (select id from public.brands where slug = 'lattafa'), (select id from public.categories where slug = 'arabes'), '100 ml · Eau de Parfum',
    'Especiado e gourmand, com tâmaras, canela e baunilha: quente e viciante.',
    'Khamrah é um perfume árabe envolvente, que combina especiarias quentes com o doce das tâmaras e do pralinê, finalizando em baunilha e madeiras ambaradas. Muito marcante e de longa duração.
@@ -110,7 +110,7 @@ Ideal para o clima frio e a noite.',
 Notas de topo: canela, noz-moscada, bergamota
 Notas de coração: tâmaras, pralinê, tuberosa
 Notas de fundo: baunilha, fava tonka, madeiras ambaradas, mirra, benjoim',
-   299.90, 5, '{}', true, false, true),
+   299.90, 5, array['/produtos/khamrah-lattafa.webp'], true, false, true),
   ('Asad', 'asad-lattafa', (select id from public.brands where slug = 'lattafa'), (select id from public.categories where slug = 'arabes'), '100 ml · Eau de Parfum',
    'Âmbar especiado com pimenta-preta, tabaco e baunilha: forte e masculino.',
    'Asad traz a intensidade da pimenta-preta e do tabaco, com um coração de café e íris e um fundo quente de baunilha e âmbar. Um perfume árabe de personalidade e excelente fixação.
@@ -120,7 +120,7 @@ Para quem gosta de fragrâncias marcantes.',
 Notas de topo: pimenta-preta, abacaxi, tabaco
 Notas de coração: café, íris, patchouli
 Notas de fundo: baunilha, âmbar, benjoim, ládano',
-   249.90, 5, '{}', false, false, true),
+   249.90, 5, array['/produtos/asad-lattafa.webp'], false, false, true),
   ('Yara', 'yara-lattafa', (select id from public.brands where slug = 'lattafa'), (select id from public.categories where slug = 'arabes'), '100 ml · Eau de Parfum',
    'Floral gourmand cremoso, com orquídea, frutas tropicais e baunilha.',
    'Yara é doce, delicado e muito feminino. Orquídea e heliotrópio se unem a um acorde gourmand de frutas tropicais, sobre um fundo cremoso de baunilha e almíscar.
